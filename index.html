@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MailGuard AI — Smart Email Security</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:#070b17;
+    color:#f4f7ff;
+    overflow-x:hidden;
+}
+
+/* BACKGROUND */
+
+body::before{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    background:#5146ff;
+    filter:blur(180px);
+    opacity:.15;
+    top:-150px;
+    left:-150px;
+    z-index:-2;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:450px;
+    height:450px;
+    background:#00c6ff;
+    filter:blur(180px);
+    opacity:.10;
+    right:-150px;
+    bottom:-100px;
+    z-index:-2;
+}
+
+/* NAVBAR */
+
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:100;
+    backdrop-filter:blur(18px);
+    background:rgba(7,11,23,.78);
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.nav-container{
+    max-width:1200px;
+    margin:auto;
+    padding:18px 25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:21px;
+    font-weight:800;
+}
+
+.logo-icon{
+    width:40px;
+    height:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:12px;
+    background:linear-gradient(135deg,#635bff,#00c6ff);
+    box-shadow:0 8px 25px rgba(81,70,255,.35);
+}
+
+.logo span{
+    color:#7c8cff;
+}
+
+.nav-links{
+    display:flex;
+    gap:28px;
+}
+
+.nav-links a{
+    color:#aab3ca;
+    text-decoration:none;
+    font-size:14px;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:white;
+}
+
+@media(max-width:700px){
+    .nav-links{
+        display:none;
+    }
+}
+
+/* HERO */
+
+.hero{
+    max-width:1200px;
+    margin:auto;
+    padding:90px 25px 55px;
+    text-align:center;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 15px;
+    border:1px solid rgba(124,140,255,.3);
+    background:rgba(124,140,255,.08);
+    border-radius:30px;
+    color:#aab5ff;
+    font-size:13px;
+    margin-bottom:25px;
+}
+
+.badge-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#65e6a8;
+    box-shadow:0 0 12px #65e6a8;
+}
+
+.hero h1{
+    font-size:clamp(40px,7vw,75px);
+    line-height:1.05;
+    font-weight:800;
+    letter-spacing:-3px;
+}
+
+.gradient-text{
+    background:linear-gradient(90deg,#7c8cff,#00d4ff);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    max-width:680px;
+    margin:22px auto;
+    color:#98a3bd;
+    line-height:1.8;
+    font-size:16px;
+}
+
+/* MAIN */
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:20px 25px 80px;
+}
+
+.section-title{
+    margin-bottom:20px;
+}
+
+.section-title h2{
+    font-size:28px;
+}
+
+.section-title p{
+    color:#8290ad;
+    margin-top:8px;
+    font-size:14px;
+}
+
+/* CARDS */
+
+.glass-card{
+    background:rgba(16,22,40,.72);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:22px;
+    backdrop-filter:blur(20px);
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+/* ANALYZER */
+
+.analyzer{
+    padding:25px;
+}
+
+.tabs{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.tab{
+    border:1px solid rgba(255,255,255,.08);
+    background:#10172a;
+    color:#8f9ab4;
+    padding:11px 18px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.tab.active{
+    background:linear-gradient(135deg,#635bff,#4264ff);
+    color:white;
+}
+
+textarea{
+    width:100%;
+    min-height:240px;
+    resize:vertical;
+    border:none;
+    outline:none;
+    border-radius:16px;
+    background:#090e1c;
+    border:1px solid rgba(255,255,255,.08);
+    color:#e9edfa;
+    padding:20px;
+    font-family:inherit;
+    font-size:14px;
+    line-height:1.7;
+}
+
+textarea::placeholder{
+    color:#59657e;
+}
+
+/* UPLOAD */
+
+.upload-box{
+    min-height:240px;
+    border:1.5px dashed #3e4b6b;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:12px;
+    cursor:pointer;
+    background:#090e1c;
+    transition:.3s;
+}
+
+.upload-box:hover{
+    border-color:#6878ff;
+    background:#0c1224;
+}
+
+.upload-icon{
+    font-size:42px;
+}
+
+.upload-box p{
+    color:#8792ad;
+    font-size:13px;
+}
+
+#fileInput{
+    display:none;
+}
+
+#preview{
+    max-width:100%;
+    max-height:300px;
+    border-radius:12px;
+    display:none;
+}
+
+/* BUTTON */
+
+.primary-btn{
+    margin-top:18px;
+    width:100%;
+    border:none;
+    padding:16px;
+    border-radius:14px;
+    background:linear-gradient(135deg,#635bff,#367cff);
+    color:white;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 10px 30px rgba(72,82,255,.25);
+    transition:.3s;
+}
+
+.primary-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 15px 35px rgba(72,82,255,.4);
+}
+
+/* RESULT */
+
+#resultSection{
+    display:none;
+    margin-top:35px;
+}
+
+.result-header{
+    padding:25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.status{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.status-icon{
+    width:55px;
+    height:55px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+}
+
+.status-icon.spam{
+    background:rgba(255,75,95,.12);
+    color:#ff6072;
+}
+
+.status-icon.safe{
+    background:rgba(68,220,145,.12);
+    color:#50e19a;
+}
+
+.status h2{
+    font-size:23px;
+}
+
+.status p{
+    color:#8290aa;
+    margin-top:5px;
+    font-size:13px;
+}
+
+/* DASHBOARD */
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    margin-top:20px;
+}
+
+@media(max-width:800px){
+    .dashboard-grid{
+        grid-template-columns:1fr;
+    }
+
+    .result-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+}
+
+.score-card{
+    padding:30px;
+    text-align:center;
+}
+
+.donut{
+    width:190px;
+    height:190px;
+    margin:15px auto 25px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+.donut::after{
+    content:"";
+    position:absolute;
+    width:145px;
+    height:145px;
+    border-radius:50%;
+    background:#101628;
+}
+
+.score{
+    position:relative;
+    z-index:2;
+}
+
+.score strong{
+    display:block;
+    font-size:36px;
+}
+
+.score small{
+    color:#8994ac;
+}
+
+.score-label{
+    color:#8792ab;
+    font-size:13px;
+}
+
+/* REASONS */
+
+.reasons-card{
+    padding:25px;
+}
+
+.card-title{
+    font-size:17px;
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+.reason{
+    padding:14px;
+    border-radius:13px;
+    background:#0b1121;
+    margin-bottom:10px;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+}
+
+.reason-icon{
+    font-size:18px;
+}
+
+.reason strong{
+    font-size:13px;
+}
+
+.reason p{
+    color:#7e8aa5;
+    font-size:12px;
+    margin-top:4px;
+    line-height:1.5;
+}
+
+/* HIGHLIGHT */
+
+.highlight-card{
+    margin-top:20px;
+    padding:25px;
+}
+
+.email-preview{
+    background:#080d19;
+    border-radius:14px;
+    padding:20px;
+    line-height:1.8;
+    color:#aeb7ca;
+    font-size:14px;
+}
+
+.suspicious{
+    background:rgba(255,77,95,.18);
+    color:#ff7885;
+    padding:2px 5px;
+    border-radius:5px;
+}
+
+/* MAIL CHECKER */
+
+.mail-checker{
+    margin-top:70px;
+}
+
+.checker-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+@media(max-width:800px){
+    .checker-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+.checker-card{
+    padding:25px;
+}
+
+.checker-card textarea{
+    min-height:300px;
+}
+
+/* SUGGESTIONS */
+
+.suggestion{
+    background:#0a1020;
+    padding:16px;
+    border-radius:13px;
+    margin-bottom:12px;
+    border-left:3px solid #6675ff;
+}
+
+.suggestion .bad{
+    color:#ff7b87;
+    font-size:13px;
+}
+
+.suggestion .good{
+    color:#63dfa1;
+    font-size:13px;
+    margin-top:7px;
+}
+
+.suggestion p{
+    color:#7e8aa5;
+    font-size:12px;
+    margin-top:7px;
+}
+
+/* FEATURES */
+
+.features{
+    margin-top:70px;
+}
+
+.feature-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+@media(max-width:800px){
+    .feature-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+.feature{
+    padding:23px;
+}
+
+.feature-icon{
+    font-size:27px;
+    margin-bottom:15px;
+}
+
+.feature h3{
+    font-size:15px;
+}
+
+.feature p{
+    color:#7f8ba5;
+    font-size:12px;
+    line-height:1.7;
+    margin-top:8px;
+}
+
+/* LOADING */
+
+.loading{
+    display:none;
+    text-align:center;
+    margin-top:20px;
+    color:#8e9ab3;
+    font-size:13px;
+}
+
+.spinner{
+    width:25px;
+    height:25px;
+    border:3px solid #26314e;
+    border-top-color:#7180ff;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+    margin:auto auto 8px;
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    background:#141d33;
+    border:1px solid rgba(255,255,255,.1);
+    padding:15px 18px;
+    border-radius:12px;
+    color:#dce3f7;
+    transform:translateY(120px);
+    opacity:0;
+    transition:.4s;
+    z-index:200;
+    font-size:13px;
+}
+
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,.07);
+    padding:30px 20px;
+    color:#59657e;
+    font-size:12px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+    <div class="nav-container">
+
+        <div class="logo">
+            <div class="logo-icon">🛡️</div>
+            Mail<span>Guard</span> AI
+        </div>
+
+        <div class="nav-links">
+            <a href="#analyzer">Spam Analyzer</a>
+            <a href="#checker">Mail Checker</a>
+            <a href="#features">Features</a>
+        </div>
+
+    </div>
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="badge">
+        <span class="badge-dot"></span>
+        AI-Powered Email Security
+    </div>
+
+    <h1>
+        Know Before<br>
+        <span class="gradient-text">You Click.</span>
+    </h1>
+
+    <p>
+        Detect suspicious emails, understand why they're risky,
+        and improve your messages before sending them.
+        Built for students, professionals and staff.
+    </p>
+
+</section>
+
+
+<main class="container">
+
+<!-- SPAM ANALYZER -->
+
+<section id="analyzer">
+
+    <div class="section-title">
+        <h2>🔍 Email Spam Analyzer</h2>
+        <p>Paste an email or upload a screenshot to analyze it.</p>
+    </div>
+
+    <div class="glass-card analyzer">
+
+        <div class="tabs">
+
+            <button class="tab active" onclick="showInput('text',this)">
+                📧 Paste Email
+            </button>
+
+            <button class="tab" onclick="showInput('image',this)">
+                🖼️ Upload Screenshot
+            </button>
+
+        </div>
+
+
+        <div id="textInput">
+
+            <textarea id="emailText"
+                placeholder="Paste the complete email here...
+
+Example:
+Congratulations! You have won a prize.
+Click this link immediately to claim your reward.
+Please provide your password and bank details."></textarea>
+
+        </div>
+
+
+        <div id="imageInput" style="display:none">
+
+            <label class="upload-box">
+
+                <div class="upload-icon">📸</div>
+
+                <strong>Upload Email Screenshot</strong>
+
+                <p>PNG, JPG or JPEG • Click or drag & drop</p>
+
+                <input
+                    type="file"
+                    id="fileInput"
+                    accept="image/*"
+                    onchange="previewImage(event)"
+                >
+
+                <img id="preview">
+
+            </label>
+
+        </div>
+
+
+        <button class="primary-btn" onclick="analyzeEmail()">
+            🔍 Analyze Email
+        </button>
+
+        <div class="loading" id="loading">
+
+            <div class="spinner"></div>
+
+            Analyzing email security...
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- RESULT -->
+
+<section id="resultSection">
+
+    <div class="glass-card">
+
+        <div class="result-header">
+
+            <div class="status">
+
+                <div class="status-icon" id="statusIcon">
+                    🚨
+                </div>
+
+                <div>
+                    <h2 id="statusTitle">Spam Detected</h2>
+                    <p id="statusDescription">
+                        This email contains multiple suspicious indicators.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="dashboard-grid">
+
+        <!-- SCORE -->
+
+        <div class="glass-card score-card">
+
+            <div class="card-title">
+                Security Dashboard
+            </div>
+
+            <div class="donut" id="donut">
+
+                <div class="score">
+                    <strong id="scoreNumber">87%</strong>
+                    <small id="scoreText">Spam Risk</small>
+                </div>
+
+            </div>
+
+            <div class="score-label">
+                Based on detected email patterns
+            </div>
+
+        </div>
+
+
+        <!-- REASONS -->
+
+        <div class="glass-card reasons-card">
+
+            <div class="card-title">
+                🚨 Why this email was flagged
+            </div>
+
+            <div id="reasons"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- EMAIL PREVIEW -->
+
+    <div class="glass-card highlight-card">
+
+        <div class="card-title">
+            📝 Email Analysis
+        </div>
+
+        <div class="email-preview" id="emailPreview">
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- MAIL CHECKER -->
+
+<section id="checker" class="mail-checker">
+
+    <div class="section-title">
+
+        <h2>✍️ Check My Mail</h2>
+
+        <p>
+            Check your email before sending it for suspicious words,
+            grammar issues and professional writing.
+        </p>
+
+    </div>
+
+
+    <div class="checker-grid">
+
+        <div class="glass-card checker-card">
+
+            <div class="card-title">
+                📨 Your Email Draft
+            </div>
+
+            <textarea
+                id="draftText"
+                placeholder="Write or paste your email here...
+
+Example:
+Hi sir,
+I am sending you this mail for ask about
+the project deadline. Please tell me fast!!!"></textarea>
+
+            <button class="primary-btn" onclick="checkMyMail()">
+                ✨ Check My Email
+            </button>
+
+        </div>
+
+
+        <div class="glass-card checker-card">
+
+            <div class="card-title">
+                💡 Smart Suggestions
+            </div>
+
+            <div id="suggestions">
+
+                <div style="color:#68748f;font-size:13px;text-align:center;padding:50px 10px">
+                    Your grammar and spam-word suggestions will appear here.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section id="features" class="features">
+
+    <div class="section-title">
+
+        <h2>🚀 Built for Everyone</h2>
+
+        <p>
+            Simple enough for students. Powerful enough for professionals.
+        </p>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+        <div class="glass-card feature">
+
+            <div class="feature-icon">🛡️</div>
+
+            <h3>Spam Detection</h3>
+
+            <p>
+                Identify suspicious patterns and potentially harmful
+                email content before you interact with it.
+            </p>
+
+        </div>
+
+
+        <div class="glass-card feature">
+
+            <div class="feature-icon">📸</div>
+
+            <h3>Screenshot Analysis</h3>
+
+            <p>
+                Upload a screenshot of an email and analyze the visible
+                content.
+            </p>
+
+        </div>
+
+
+        <div class="glass-card feature">
+
+            <div class="feature-icon">✍️</div>
+
+            <h3>Smart Mail Checker</h3>
+
+            <p>
+                Improve grammar, wording and professionalism before
+                sending your email.
+            </p>
+
+        </div>
+
+
+        <div class="glass-card feature">
+
+            <div class="feature-icon">📊</div>
+
+            <h3>Risk Dashboard</h3>
+
+            <p>
+                Understand the result through an easy-to-read
+                percentage-based security dashboard.
+            </p>
+
+        </div>
+
+
+        <div class="glass-card feature">
+
+            <div class="feature-icon">🚨</div>
+
+            <h3>Reason Detection</h3>
+
+            <p>
+                Don't just get a spam label. Understand the suspicious
+                indicators behind the result.
+            </p>
+
+        </div>
+
+
+        <div class="glass-card feature">
+
+            <div class="feature-icon">🎓</div>
+
+            <h3>Student Friendly</h3>
+
+            <p>
+                Designed with a simple interface suitable for students,
+                teachers and IT professionals.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    MailGuard AI • Smart Email Security
+
+    <br><br>
+
+    ⚠️ This is a demonstration interface. Results should not be treated
+    as guaranteed security decisions.
+
+</footer>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* ==============================
+   INPUT SWITCHING
+============================== */
+
+function showInput(type,button){
+
+    document.querySelectorAll(".tab").forEach(tab=>{
+        tab.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    if(type==="text"){
+
+        document.getElementById("textInput").style.display="block";
+        document.getElementById("imageInput").style.display="none";
+
+    }else{
+
+        document.getElementById("textInput").style.display="none";
+        document.getElementById("imageInput").style.display="block";
+
+    }
+
+}
+
+
+/* ==============================
+   IMAGE PREVIEW
+============================== */
+
+function previewImage(event){
+
+    const file=event.target.files[0];
+
+    if(!file) return;
+
+    const preview=document.getElementById("preview");
+
+    preview.src=URL.createObjectURL(file);
+
+    preview.style.display="block";
+
+    document.querySelector(".upload-icon").style.display="none";
+
+    document.querySelector(".upload-box strong").textContent=
+        file.name;
+
+}
+
+
+/* ==============================
+   SPAM KEYWORDS
+============================== */
+
+const spamPatterns=[
+
+    {
+        words:["urgent","immediately","act now"],
+        title:"Urgent or threatening language",
+        description:"The email uses pressure to make the recipient act quickly."
+    },
+
+    {
+        words:["winner","won","prize","lottery","congratulations"],
+        title:"Prize or reward claim",
+        description:"Unexpected prizes and rewards are common spam indicators."
+    },
+
+    {
+        words:["password","otp","bank details","credit card","login"],
+        title:"Sensitive information request",
+        description:"The message appears to request credentials or financial information."
+    },
+
+    {
+        words:["click here","click the link","verify your account"],
+        title:"Suspicious call-to-action",
+        description:"The email encourages the recipient to click a link or verify an account."
+    },
+
+    {
+        words:["free money","cash reward","earn money"],
+        title:"Unrealistic financial offer",
+        description:"Promises of easy money can indicate fraudulent or spam content."
+    },
+
+    {
+        words:["limited time","offer expires","act immediately"],
+        title:"Artificial urgency",
+        description:"Time pressure can be used to prevent users from thinking carefully."
+    }
+
+];
+
+
+/* ==============================
+   ANALYZE EMAIL
+============================== */
+
+function analyzeEmail(){
+
+    let text=document.getElementById("emailText").value.trim();
+
+    if(!text){
+
+        showToast("Please paste an email to analyze.");
+
+        return;
+    }
+
+    document.getElementById("loading").style.display="block";
+
+    setTimeout(()=>{
+
+        performAnalysis(text);
+
+        document.getElementById("loading").style.display="none";
+
+    },1000);
+
+}
+
+
+/* ==============================
+   ANALYSIS ENGINE
+============================== */
+
+function performAnalysis(text){
+
+    let lower=text.toLowerCase();
+
+    let score=10;
+
+    let detected=[];
+
+    spamPatterns.forEach(pattern=>{
+
+        let found=pattern.words.some(word=>
+            lower.includes(word)
+        );
+
+        if(found){
+
+            score+=15;
+
+            detected.push(pattern);
+
+        }
+
+    });
+
+
+    if(lower.includes("http://") || lower.includes("bit.ly")){
+
+        score+=20;
+
+        detected.push({
+
+            title:"Suspicious link detected",
+
+            description:
+            "The email contains a link pattern that may require additional verification."
+
+        });
+
+    }
+
+
+    if((text.match(/!/g)||[]).length>=3){
+
+        score+=8;
+
+        detected.push({
+
+            title:"Excessive punctuation",
+
+            description:
+            "Multiple exclamation marks may be used to create unnecessary urgency."
+
+        });
+
+    }
+
+
+    score=Math.min(score,99);
+
+
+    displayResult(score,detected,text);
+
+}
+
+
+/* ==============================
+   DISPLAY RESULT
+============================== */
+
+function displayResult(score,reasons,text){
+
+    const result=document.getElementById("resultSection");
+
+    result.style.display="block";
+
+    result.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+    });
+
+
+    const spam=score>=50;
+
+    const icon=document.getElementById("statusIcon");
+
+    const title=document.getElementById("statusTitle");
+
+    const description=document.getElementById("statusDescription");
+
+    const scoreNumber=document.getElementById("scoreNumber");
+
+    const scoreText=document.getElementById("scoreText");
+
+    const donut=document.getElementById("donut");
+
+
+    if(spam){
+
+        icon.className="status-icon spam";
+
+        icon.innerHTML="🚨";
+
+        title.textContent="Spam Detected";
+
+        description.textContent=
+            "This email contains suspicious patterns that may indicate spam or phishing.";
+
+        scoreText.textContent="Spam Risk";
+
+        donut.style.background=
+            `conic-gradient(#ff5368 ${score}%, #202942 ${score}% 100%)`;
+
+    }else{
+
+        icon.className="status-icon safe";
+
+        icon.innerHTML="✓";
+
+        title.textContent="Email Looks Safe";
+
+        description.textContent=
+            "No major spam indicators were detected in this email.";
+
+        scoreText.textContent="Safety Score";
+
+        score=100-score;
+
+        donut.style.background=
+            `conic-gradient(#42dda0 ${score}%, #202942 ${score}% 100%)`;
+
+    }
+
+
+    scoreNumber.textContent=score+"%";
+
+
+    const reasonsBox=document.getElementById("reasons");
+
+    reasonsBox.innerHTML="";
+
+
+    if(reasons.length===0){
+
+        reasonsBox.innerHTML=`
+
+            <div class="reason">
+
+                <div class="reason-icon">✅</div>
+
+                <div>
+
+                    <strong>No major warning signs</strong>
+
+                    <p>
+                    The analyzer did not find common suspicious patterns.
+                    </p>
+
+                </div>
+
+            </div>
+
+        `;
+
+    }else{
+
+        reasons.forEach(reason=>{
+
+            reasonsBox.innerHTML+=`
+
+                <div class="reason">
+
+                    <div class="reason-icon">⚠️</div>
+
+                    <div>
+
+                        <strong>${reason.title}</strong>
+
+                        <p>${reason.description}</p>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
+
+    document.getElementById("emailPreview").innerHTML=
+        highlightSuspicious(text);
+
+}
+
+
+/* ==============================
+   HIGHLIGHT WORDS
+============================== */
+
+function highlightSuspicious(text){
+
+    let safe=text
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;");
+
+
+    const allWords=[];
+
+    spamPatterns.forEach(pattern=>{
+
+        pattern.words.forEach(word=>{
+
+            allWords.push(word);
+
+        });
+
+    });
+
+
+    allWords.sort((a,b)=>b.length-a.length);
+
+
+    allWords.forEach(word=>{
+
+        const regex=
+            new RegExp(`(${escapeRegex(word)})`,"gi");
+
+        safe=safe.replace(
+            regex,
+            '<span class="suspicious">$1</span>'
+        );
+
+    });
+
+
+    return safe.replace(/\n/g,"<br>");
+
+}
+
+
+function escapeRegex(string){
+
+    return string.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+
+}
+
+
+/* ==============================
+   MY MAIL CHECKER
+============================== */
+
+function checkMyMail(){
+
+    const text=document
+        .getElementById("draftText")
+        .value
+        .trim();
+
+    const box=document.getElementById("suggestions");
+
+    if(!text){
+
+        showToast("Please enter your email draft.");
+
+        return;
+    }
+
+
+    let suggestions=[];
+
+    const lower=text.toLowerCase();
+
+
+    /* Spam words */
+
+    const spamWords=[
+        "urgent",
+        "click here",
+        "free money",
+        "winner",
+        "prize",
+        "act now",
+        "limited time",
+        "guaranteed"
+    ];
+
+
+    spamWords.forEach(word=>{
+
+        if(lower.includes(word)){
+
+            suggestions.push({
+
+                bad:`⚠️ Suspicious phrase: "${word}"`,
+
+                good:"Consider replacing it with clear and neutral wording.",
+
+                tip:"Professional emails should avoid unnecessary urgency or exaggerated claims."
+
+            });
+
+        }
+
+    });
+
+
+    /* Grammar */
+
+    if(/\bi am sending this mail for\b/i.test(text)){
+
+        suggestions.push({
+
+            bad:"❌ \"I am sending this mail for...\"",
+
+            good:"✅ \"I am writing to...\"",
+
+            tip:"\"I am writing to\" is more natural and professional."
+
+        });
+
+    }
+
+
+    if(/\bplease tell me\b/i.test(text)){
+
+        suggestions.push({
+
+            bad:"❌ \"Please tell me...\"",
+
+            good:"✅ \"Could you please let me know...\"",
+
+            tip:"This sounds more polite in professional communication."
+
+        });
+
+    }
+
+
+    if((text.match(/!/g)||[]).length>=2){
+
+        suggestions.push({
+
+            bad:"⚠️ Too many exclamation marks",
+
+            good:"✅ Use normal punctuation.",
+
+            tip:"Professional emails usually don't need repeated exclamation marks."
+
+        });
+
+    }
+
+
+    if(!/[.!?]\s*$/.test(text)){
+
+        suggestions.push({
+
+            bad:"⚠️ The email may need proper ending punctuation.",
+
+            good:"✅ End complete sentences with appropriate punctuation.",
+
+            tip:"Correct punctuation improves readability."
+
+        });
+
+    }
+
+
+    if(suggestions.length===0){
+
+        suggestions.push({
+
+            bad:"✅ No major issues detected",
+
+            good:"Your email looks reasonably professional.",
+
+            tip:"Continue using clear, concise and respectful language."
+
+        });
+
+    }
+
+
+    box.innerHTML="";
+
+
+    suggestions.forEach(item=>{
+
+        box.innerHTML+=`
+
+            <div class="suggestion">
+
+                <div class="bad">${item.bad}</div>
+
+                <div class="good">${item.good}</div>
+
+                <p>💡 ${item.tip}</p>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+/* ==============================
+   TOAST
+============================== */
+
+function showToast(message){
+
+    const toast=document.getElementById("toast");
+
+    toast.textContent=message;
+
+    toast.classList.add("show");
+
+    setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+    },3000);
+
+}
+
+</script>
+
+</body>
+</html>
