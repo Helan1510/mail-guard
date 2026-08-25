@@ -3,51 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CodeForge AI | Multi-Language Code Generator</title>
+<title>SpeakCraft AI — Speech Generator</title>
 
 <style>
+:root {
+    --bg: #080b16;
+    --card: #101526;
+    --card2: #0d1221;
+    --text: #f5f7ff;
+    --muted: #9ca7c3;
+    --purple: #8b5cf6;
+    --cyan: #06b6d4;
+    --border: rgba(255,255,255,0.09);
+}
+
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
-:root {
-    --black: #050505;
-    --black2: #0b0b0b;
-    --card: #111111;
-    --card2: #161616;
-    --silver: #d8d8d8;
-    --silver2: #9b9b9b;
-    --line: #292929;
-    --white: #ffffff;
-    --green: #b7ffcc;
-}
-
 body {
-    font-family: "Segoe UI", Arial, sans-serif;
-    background:
-        radial-gradient(circle at 15% 10%, #242424 0%, transparent 25%),
-        radial-gradient(circle at 85% 80%, #1c1c1c 0%, transparent 25%),
-        var(--black);
-    color: var(--white);
+    margin: 0;
     min-height: 100vh;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 10% 10%, rgba(139,92,246,.20), transparent 28%),
+        radial-gradient(circle at 90% 20%, rgba(6,182,212,.15), transparent 25%),
+        var(--bg);
 }
 
-/* ---------------- HEADER ---------------- */
+.container {
+    width: min(1180px, 92%);
+    margin: auto;
+}
+
+/* HEADER */
 
 header {
-    height: 75px;
-    border-bottom: 1px solid var(--line);
-    background: rgba(5,5,5,0.9);
-    backdrop-filter: blur(12px);
+    padding: 25px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 6%;
-    position: sticky;
-    top: 0;
-    z-index: 100;
 }
 
 .logo {
@@ -55,446 +51,309 @@ header {
     align-items: center;
     gap: 12px;
     font-size: 21px;
-    font-weight: 700;
-    letter-spacing: 1px;
+    font-weight: 800;
 }
 
 .logo-icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    background: linear-gradient(145deg, #eeeeee, #666);
-    color: #050505;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 900;
-    box-shadow: 0 0 20px rgba(255,255,255,0.15);
-}
-
-.logo span {
-    color: var(--silver2);
-}
-
-.header-tag {
-    color: #888;
-    font-size: 13px;
-}
-
-/* ---------------- HERO ---------------- */
-
-.hero {
-    text-align: center;
-    padding: 75px 20px 45px;
-    max-width: 1000px;
-    margin: auto;
+    width: 43px;
+    height: 43px;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    background: linear-gradient(135deg, var(--purple), var(--cyan));
+    box-shadow: 0 10px 30px rgba(0,0,0,.4);
 }
 
 .badge {
-    display: inline-block;
-    padding: 7px 15px;
-    border: 1px solid #383838;
-    border-radius: 30px;
-    color: #bdbdbd;
-    background: #111;
+    padding: 7px 12px;
+    border-radius: 20px;
     font-size: 12px;
-    letter-spacing: 1px;
-    margin-bottom: 22px;
+    color: #d9d3ff;
+    border: 1px solid rgba(139,92,246,.35);
+    background: rgba(139,92,246,.08);
+}
+
+/* HERO */
+
+.hero {
+    text-align: center;
+    padding: 30px 0 38px;
 }
 
 .hero h1 {
-    font-size: clamp(38px, 6vw, 70px);
-    line-height: 1;
-    margin-bottom: 20px;
-    letter-spacing: -3px;
+    font-size: clamp(35px, 5vw, 60px);
+    line-height: 1.05;
+    margin: 15px 0;
 }
 
-.hero h1 span {
-    background: linear-gradient(90deg, #ffffff, #777777);
+.gradient {
+    background: linear-gradient(90deg, #c4b5fd, #67e8f9);
+    background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
 }
 
 .hero p {
-    color: #999;
-    max-width: 650px;
+    max-width: 720px;
     margin: auto;
+    color: var(--muted);
     line-height: 1.7;
-    font-size: 16px;
 }
 
-/* ---------------- MAIN ---------------- */
+/* MAIN GRID */
 
-.container {
-    width: 90%;
-    max-width: 1150px;
-    margin: auto;
+.grid {
+    display: grid;
+    grid-template-columns: 390px 1fr;
+    gap: 22px;
+    align-items: start;
 }
 
-/* ---------------- GENERATOR ---------------- */
-
-.generator {
-    background: linear-gradient(145deg, #111, #0b0b0b);
-    border: 1px solid var(--line);
+.card {
+    background: linear-gradient(180deg, #11172aee, #0d1221ee);
+    border: 1px solid var(--border);
     border-radius: 22px;
-    padding: 28px;
-    box-shadow: 0 25px 70px rgba(0,0,0,0.5);
+    padding: 22px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    backdrop-filter: blur(15px);
 }
 
-.section-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 18px;
+.card h2 {
+    margin: 0 0 18px;
+    font-size: 17px;
 }
 
-.section-title h2 {
-    font-size: 18px;
-}
-
-.section-title small {
-    color: #777;
-}
-
-/* LANGUAGE BUTTONS */
-
-.languages {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-bottom: 25px;
-}
-
-.lang-btn {
-    padding: 14px;
-    border-radius: 12px;
-    border: 1px solid #303030;
-    background: #151515;
-    color: #aaa;
-    cursor: pointer;
-    transition: 0.25s;
-    font-weight: 600;
-}
-
-.lang-btn:hover {
-    border-color: #777;
-    transform: translateY(-2px);
-}
-
-.lang-btn.active {
-    background: linear-gradient(145deg, #e5e5e5, #9c9c9c);
-    color: #080808;
-    border-color: #fff;
-    box-shadow: 0 0 18px rgba(255,255,255,0.12);
-}
-
-.lang-icon {
+label {
     display: block;
-    font-size: 20px;
-    margin-bottom: 5px;
-}
-
-/* PROMPT */
-
-.prompt-label {
-    display: block;
-    color: #aaa;
-    font-size: 13px;
-    margin-bottom: 9px;
-}
-
-textarea {
-    width: 100%;
-    min-height: 125px;
-    resize: vertical;
-    border-radius: 14px;
-    border: 1px solid #303030;
-    background: #080808;
-    color: #eee;
-    padding: 17px;
-    font-size: 15px;
-    outline: none;
-    font-family: inherit;
-    transition: 0.2s;
-}
-
-textarea:focus {
-    border-color: #8b8b8b;
-    box-shadow: 0 0 0 3px rgba(255,255,255,0.04);
-}
-
-textarea::placeholder {
-    color: #555;
-}
-
-/* EXAMPLES */
-
-.examples {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin: 14px 0 22px;
-}
-
-.example {
-    padding: 8px 12px;
-    background: #171717;
-    border: 1px solid #292929;
-    color: #888;
-    border-radius: 20px;
-    cursor: pointer;
+    margin: 15px 0 8px;
+    color: #bdc6da;
     font-size: 12px;
-    transition: 0.2s;
-}
-
-.example:hover {
-    color: white;
-    border-color: #666;
-}
-
-/* GENERATE BUTTON */
-
-.generate-btn {
-    width: 100%;
-    border: none;
-    border-radius: 13px;
-    padding: 16px;
-    background: linear-gradient(90deg, #f1f1f1, #969696);
-    color: #050505;
-    font-size: 15px;
-    font-weight: 800;
-    cursor: pointer;
-    transition: 0.25s;
-}
-
-.generate-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(255,255,255,0.12);
-}
-
-.generate-btn:active {
-    transform: scale(0.99);
-}
-
-/* ---------------- OUTPUT ---------------- */
-
-.output-section {
-    margin-top: 45px;
-    padding-bottom: 70px;
-}
-
-.output-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.output-header h2 {
-    font-size: 25px;
-}
-
-.status {
-    color: #888;
-    font-size: 13px;
-}
-
-.code-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-}
-
-.code-card {
-    background: #0d0d0d;
-    border: 1px solid #292929;
-    border-radius: 18px;
-    overflow: hidden;
-    animation: appear 0.45s ease;
-}
-
-@keyframes appear {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.code-top {
-    height: 55px;
-    padding: 0 16px;
-    background: #151515;
-    border-bottom: 1px solid #282828;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.language-name {
-    display: flex;
-    align-items: center;
-    gap: 9px;
     font-weight: 700;
 }
 
-.dot {
-    width: 9px;
-    height: 9px;
-    background: #ccc;
-    border-radius: 50%;
-}
-
-.copy-btn {
-    border: 1px solid #333;
-    background: #0b0b0b;
-    color: #aaa;
-    padding: 7px 11px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 11px;
-}
-
-.copy-btn:hover {
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 12px 13px;
+    border-radius: 13px;
+    border: 1px solid var(--border);
+    background: #0a0f1d;
     color: white;
-    border-color: #777;
+    font: inherit;
+    outline: none;
 }
 
-pre {
-    padding: 20px;
-    min-height: 300px;
-    max-height: 500px;
-    overflow: auto;
-    color: #d3d3d3;
-    font-family: "Consolas", "Courier New", monospace;
-    font-size: 13px;
-    line-height: 1.7;
-    white-space: pre-wrap;
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: rgba(139,92,246,.7);
+    box-shadow: 0 0 0 3px rgba(139,92,246,.1);
 }
 
-.output-box {
-    margin: 14px;
-    border: 1px solid #292929;
-    border-radius: 12px;
-    overflow: hidden;
+textarea {
+    resize: vertical;
+    min-height: 110px;
+    line-height: 1.5;
 }
 
-.output-title {
-    padding: 9px 13px;
-    background: #171717;
-    color: #888;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.output-content {
-    padding: 15px;
-    background: #080808;
-    color: var(--green);
-    font-family: monospace;
-    font-size: 13px;
-    white-space: pre-wrap;
-    line-height: 1.6;
-}
-
-/* ---------------- EMPTY ---------------- */
-
-.empty {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 60px 20px;
-    border: 1px dashed #292929;
-    border-radius: 18px;
-    color: #666;
-}
-
-.empty-icon {
-    font-size: 40px;
-    margin-bottom: 15px;
-}
-
-/* ---------------- FEATURES ---------------- */
-
-.features {
+.row {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    margin: 45px 0 70px;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
 }
 
-.feature {
-    border: 1px solid #252525;
-    background: #0d0d0d;
+/* TONE BUTTONS */
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.chip {
+    cursor: pointer;
+    padding: 8px 11px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #0b1020;
+    color: #aeb8cf;
+}
+
+.chip.active {
+    color: white;
+    border-color: rgba(139,92,246,.7);
+    background: rgba(139,92,246,.15);
+}
+
+/* GENERATE */
+
+.generate {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    background: linear-gradient(100deg, var(--purple), var(--cyan));
+    box-shadow: 0 12px 30px rgba(139,92,246,.2);
+    transition: .2s;
+}
+
+.generate:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+}
+
+.generate:disabled {
+    opacity: .6;
+    cursor: wait;
+}
+
+/* OUTPUT */
+
+.output-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    color: #72f1c3;
+    border: 1px solid rgba(114,241,195,.2);
+    background: rgba(114,241,195,.05);
+}
+
+.placeholder {
+    min-height: 430px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    color: #77829e;
+}
+
+.placeholder-icon {
+    font-size: 52px;
+    margin-bottom: 12px;
+}
+
+.speech-title {
+    margin: 24px 0 12px;
+    font-size: 28px;
+}
+
+.meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.meta span {
+    padding: 6px 9px;
+    border-radius: 9px;
+    font-size: 11px;
+    color: #aeb8cf;
+    background: rgba(255,255,255,.03);
+    border: 1px solid var(--border);
+}
+
+.speech-box {
+    min-height: 430px;
+    padding: 22px;
     border-radius: 16px;
-    padding: 23px;
-}
-
-.feature-icon {
-    font-size: 25px;
-    margin-bottom: 15px;
-}
-
-.feature h3 {
+    border: 1px solid var(--border);
+    background: #0a0f1c;
+    color: #e5e9f5;
+    line-height: 1.85;
     font-size: 15px;
-    margin-bottom: 8px;
+    white-space: pre-wrap;
 }
 
-.feature p {
-    color: #777;
-    font-size: 13px;
+.cursor {
+    display: inline-block;
+    width: 7px;
+    height: 17px;
+    margin-left: 3px;
+    background: var(--cyan);
+    animation: blink .7s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+/* ACTION BUTTONS */
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 14px;
+}
+
+.secondary {
+    padding: 10px 13px;
+    border-radius: 11px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.04);
+    color: #dbe2f2;
+    cursor: pointer;
+}
+
+.secondary:hover {
+    background: rgba(255,255,255,.09);
+}
+
+.tip {
+    margin-top: 16px;
+    padding: 12px;
+    border-left: 3px solid var(--purple);
+    border-radius: 8px;
+    background: rgba(139,92,246,.06);
+    color: #9faac2;
+    font-size: 12px;
     line-height: 1.6;
 }
-
-/* ---------------- FOOTER ---------------- */
 
 footer {
-    border-top: 1px solid #222;
-    padding: 25px;
     text-align: center;
-    color: #555;
+    color: #66718b;
     font-size: 12px;
+    padding: 30px 0;
 }
 
-/* ---------------- RESPONSIVE ---------------- */
+/* RESPONSIVE */
 
-@media(max-width: 800px) {
-    .code-grid {
+@media(max-width: 850px) {
+    .grid {
         grid-template-columns: 1fr;
-    }
-
-    .languages {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .features {
-        grid-template-columns: 1fr;
-    }
-
-    .header-tag {
-        display: none;
     }
 }
 
 @media(max-width: 500px) {
-    .hero {
-        padding-top: 50px;
+    .row {
+        grid-template-columns: 1fr;
     }
 
-    .generator {
-        padding: 18px;
+    header {
+        gap: 10px;
     }
 
-    .languages {
-        grid-template-columns: 1fr 1fr;
+    .badge {
+        display: none;
     }
 
-    .hero h1 {
-        letter-spacing: -1px;
+    .output-top {
+        align-items: flex-start;
     }
 }
 </style>
@@ -502,711 +361,853 @@ footer {
 
 <body>
 
+<div class="container">
+
 <header>
-
     <div class="logo">
-        <div class="logo-icon">&lt;/&gt;</div>
-        CodeForge <span>AI</span>
+        <div class="logo-icon">🎙️</div>
+        SpeakCraft AI
     </div>
 
-    <div class="header-tag">
-        Multi-Language Code Generator
+    <div class="badge">
+        Student Speech Studio
     </div>
-
 </header>
 
 
 <section class="hero">
 
     <div class="badge">
-        BUILT FOR COLLEGE STUDENTS
+        ✨ Create • Practice • Present
     </div>
 
     <h1>
-        Turn Ideas Into <span>Code.</span>
+        Turn your ideas into a
+        <span class="gradient">great speech.</span>
     </h1>
 
     <p>
-        Describe your programming problem in simple words and generate
-        ready-to-understand code in C, C++, Python and Java with sample output.
+        Enter your topic, describe what you want to say,
+        choose your audience and style — then generate
+        a ready-to-present speech.
     </p>
 
 </section>
 
 
-<main class="container">
+<main class="grid">
 
-    <section class="generator">
+<!-- INPUT PANEL -->
 
-        <div class="section-title">
-            <h2>Choose Programming Language</h2>
-            <small>Select one or more</small>
-        </div>
+<section class="card">
 
-        <div class="languages">
+    <h2>🎯 Speech Settings</h2>
 
-            <button class="lang-btn active" data-lang="python">
-                <span class="lang-icon">🐍</span>
-                Python
-            </button>
+    <label for="topic">
+        Speech Topic *
+    </label>
 
-            <button class="lang-btn" data-lang="c">
-                <span class="lang-icon">C</span>
-                C
-            </button>
-
-            <button class="lang-btn" data-lang="cpp">
-                <span class="lang-icon">C++</span>
-                C++
-            </button>
-
-            <button class="lang-btn" data-lang="java">
-                <span class="lang-icon">☕</span>
-                Java
-            </button>
-
-        </div>
+    <input
+        id="topic"
+        type="text"
+        maxlength="100"
+        placeholder="e.g. Artificial Intelligence"
+    >
 
 
-        <label class="prompt-label">
-            Describe what you want to program
-        </label>
+    <label for="description">
+        What should the speech cover?
+    </label>
 
-        <textarea id="prompt"
-        placeholder="Example: Write a program to display 2 multiplication tables"></textarea>
+    <textarea
+        id="description"
+        placeholder="e.g. Explain how AI helps students, its benefits, risks and future..."
+    ></textarea>
 
 
-        <div class="examples">
+    <div class="row">
 
-            <div class="example" onclick="setExample('Display 2 multiplication tables')">
-                2 Tables
-            </div>
+        <div>
+            <label for="audience">
+                Audience
+            </label>
 
-            <div class="example" onclick="setExample('Display 5 multiplication tables')">
-                5 Tables
-            </div>
-
-            <div class="example" onclick="setExample('Check whether a number is prime')">
-                Prime Number
-            </div>
-
-            <div class="example" onclick="setExample('Find factorial of a number')">
-                Factorial
-            </div>
-
-            <div class="example" onclick="setExample('Find the largest number among 3 numbers')">
-                Largest of 3
-            </div>
-
+            <select id="audience">
+                <option>College Students</option>
+                <option>School Students</option>
+                <option>General Audience</option>
+                <option>Teachers / Faculty</option>
+            </select>
         </div>
 
 
-        <button class="generate-btn" onclick="generateCode()">
-            ⚡ Generate Code
+        <div>
+            <label for="duration">
+                Duration
+            </label>
+
+            <select id="duration">
+                <option value="1">1 minute</option>
+                <option value="2" selected>2 minutes</option>
+                <option value="3">3 minutes</option>
+                <option value="5">5 minutes</option>
+            </select>
+        </div>
+
+    </div>
+
+
+    <label>
+        Tone
+    </label>
+
+    <div class="chips">
+
+        <button class="chip active" data-tone="Formal">
+            Formal
         </button>
 
-    </section>
+        <button class="chip" data-tone="Inspirational">
+            Inspirational
+        </button>
+
+        <button class="chip" data-tone="Friendly">
+            Friendly
+        </button>
+
+        <button class="chip" data-tone="Powerful">
+            Powerful
+        </button>
+
+        <button class="chip" data-tone="Simple">
+            Simple
+        </button>
+
+    </div>
 
 
-    <section class="output-section">
+    <div class="row">
 
-        <div class="output-header">
+        <div>
+
+            <label for="language">
+                Language
+            </label>
+
+            <select id="language">
+                <option>English</option>
+                <option>Tamil</option>
+                <option>Tanglish</option>
+            </select>
+
+        </div>
+
+
+        <div>
+
+            <label for="opening">
+                Opening Style
+            </label>
+
+            <select id="opening">
+                <option>Question</option>
+                <option>Quote-style</option>
+                <option>Story</option>
+                <option>Direct</option>
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <button class="generate" id="generate">
+        ✨ Generate Speech
+    </button>
+
+
+    <div class="tip">
+        💡 Tip: Add specific points in the description
+        for a more focused speech.
+    </div>
+
+</section>
+
+
+<!-- OUTPUT PANEL -->
+
+<section class="card">
+
+    <div class="output-top">
+
+        <h2>
+            📝 Your Speech
+        </h2>
+
+        <div class="status" id="status">
+            Ready
+        </div>
+
+    </div>
+
+
+    <div id="result">
+
+        <div class="placeholder">
 
             <div>
-                <h2>Generated Code</h2>
-            </div>
 
-            <div class="status" id="status">
-                Ready
-            </div>
+                <div class="placeholder-icon">
+                    🎤
+                </div>
 
-        </div>
+                <b>
+                    Your speech will appear here
+                </b>
 
+                <br>
 
-        <div class="code-grid" id="results">
-
-            <div class="empty">
-
-                <div class="empty-icon">⌨️</div>
-
-                <h3>Your code will appear here</h3>
-
-                <p>
-                    Select a language and describe your programming problem.
-                </p>
+                <small>
+                    Fill in your topic and click Generate Speech.
+                </small>
 
             </div>
 
         </div>
 
-    </section>
+    </div>
 
 
-    <section class="features">
+    <div
+        class="actions"
+        id="actions"
+        style="display:none"
+    >
 
-        <div class="feature">
+        <button class="secondary" id="copyBtn">
+            📋 Copy
+        </button>
 
-            <div class="feature-icon">⚡</div>
+        <button class="secondary" id="downloadBtn">
+            ⬇️ Download
+        </button>
 
-            <h3>Fast Generation</h3>
+        <button class="secondary" id="speakBtn">
+            🔊 Listen
+        </button>
 
-            <p>
-                Convert simple programming questions into understandable
-                source code quickly.
-            </p>
+        <button class="secondary" id="stopBtn">
+            ⏹ Stop
+        </button>
 
-        </div>
+        <button class="secondary" id="shortBtn">
+            ✂️ Make Shorter
+        </button>
 
+        <button class="secondary" id="powerBtn">
+            🔥 Make Powerful
+        </button>
 
-        <div class="feature">
+    </div>
 
-            <div class="feature-icon">🌐</div>
-
-            <h3>Multiple Languages</h3>
-
-            <p>
-                Generate the same programming solution in C, C++, Python
-                and Java.
-            </p>
-
-        </div>
-
-
-        <div class="feature">
-
-            <div class="feature-icon">🎓</div>
-
-            <h3>Student Friendly</h3>
-
-            <p>
-                Designed for college students, lab exercises,
-                assignments and programming practice.
-            </p>
-
-        </div>
-
-    </section>
+</section>
 
 </main>
 
 
 <footer>
-    CodeForge AI © 2026 · Learn. Code. Build.
+    SpeakCraft AI • Student-friendly Speech Creation Tool
 </footer>
+
+</div>
 
 
 <script>
 
-/* ------------------------------------------------
-   LANGUAGE SELECTION
------------------------------------------------- */
+/* ===============================
+   VARIABLES
+================================ */
 
-const languageButtons = document.querySelectorAll(".lang-btn");
+let selectedTone = "Formal";
 
-languageButtons.forEach(button => {
+let currentSpeech = "";
+
+let currentTitle = "";
+
+
+/* ===============================
+   ELEMENT HELPER
+================================ */
+
+const $ = id => document.getElementById(id);
+
+
+/* ===============================
+   TONE BUTTONS
+================================ */
+
+document.querySelectorAll(".chip").forEach(button => {
 
     button.addEventListener("click", () => {
 
-        button.classList.toggle("active");
+        document
+            .querySelectorAll(".chip")
+            .forEach(btn => btn.classList.remove("active"));
 
-        // Prevent zero languages
-        const active = document.querySelectorAll(".lang-btn.active");
+        button.classList.add("active");
 
-        if(active.length === 0) {
-            button.classList.add("active");
-        }
+        selectedTone = button.dataset.tone;
 
     });
 
 });
 
 
-/* ------------------------------------------------
-   EXAMPLE PROMPT
------------------------------------------------- */
-
-function setExample(text) {
-
-    document.getElementById("prompt").value = text;
-
-}
-
-
-/* ------------------------------------------------
-   DETECT NUMBER OF TABLES
------------------------------------------------- */
-
-function getTableCount(prompt) {
-
-    const match = prompt.match(/(\d+)\s*(table|tables)/i);
-
-    if(match) {
-        return Math.min(parseInt(match[1]), 16);
-    }
-
-    return 2;
-}
-
-
-/* ------------------------------------------------
-   PYTHON TABLE CODE
------------------------------------------------- */
-
-function generatePythonTables(count) {
-
-    let code =
-`# Program to display ${count} multiplication tables
-
-for table in range(1, ${count + 1}):
-    print("Table", table)
-
-    for i in range(1, 11):
-        print(table, "x", i, "=", table * i)
-
-    print()`;
-
-    let output = "";
-
-    for(let t = 1; t <= count; t++) {
-
-        output += `Table ${t}\n`;
-
-        for(let i = 1; i <= 10; i++) {
-            output += `${t} x ${i} = ${t*i}\n`;
-        }
-
-        output += "\n";
-    }
-
-    return {
-        code: code,
-        output: output
-    };
-}
-
-
-/* ------------------------------------------------
-   C TABLE CODE
------------------------------------------------- */
-
-function generateCTables(count) {
-
-    let code =
-`#include <stdio.h>
-
-int main() {
-
-    int table, i;
-
-    for(table = 1; table <= ${count}; table++) {
-
-        printf("Table %d\\\\n", table);
-
-        for(i = 1; i <= 10; i++) {
-            printf("%d x %d = %d\\\\n",
-                   table, i, table * i);
-        }
-
-        printf("\\\\n");
-    }
-
-    return 0;
-}`;
-
-    let output = "";
-
-    for(let t = 1; t <= count; t++) {
-
-        output += `Table ${t}\n`;
-
-        for(let i = 1; i <= 10; i++) {
-            output += `${t} x ${i} = ${t*i}\n`;
-        }
-
-        output += "\n";
-    }
-
-    return {
-        code: code,
-        output: output
-    };
-}
-
-
-/* ------------------------------------------------
-   C++ TABLE CODE
------------------------------------------------- */
-
-function generateCppTables(count) {
-
-    let code =
-`#include <iostream>
-using namespace std;
-
-int main() {
-
-    for(int table = 1; table <= ${count}; table++) {
-
-        cout << "Table " << table << endl;
-
-        for(int i = 1; i <= 10; i++) {
-
-            cout << table << " x "
-                 << i << " = "
-                 << table * i << endl;
-        }
-
-        cout << endl;
-    }
-
-    return 0;
-}`;
-
-    let output = "";
-
-    for(let t = 1; t <= count; t++) {
-
-        output += `Table ${t}\n`;
-
-        for(let i = 1; i <= 10; i++) {
-            output += `${t} x ${i} = ${t*i}\n`;
-        }
-
-        output += "\n";
-    }
-
-    return {
-        code: code,
-        output: output
-    };
-}
-
-
-/* ------------------------------------------------
-   JAVA TABLE CODE
------------------------------------------------- */
-
-function generateJavaTables(count) {
-
-    let code =
-`public class Main {
-
-    public static void main(String[] args) {
-
-        for(int table = 1; table <= ${count}; table++) {
-
-            System.out.println("Table " + table);
-
-            for(int i = 1; i <= 10; i++) {
-
-                System.out.println(
-                    table + " x " +
-                    i + " = " +
-                    (table * i)
-                );
-            }
-
-            System.out.println();
-        }
-    }
-}`;
-
-    let output = "";
-
-    for(let t = 1; t <= count; t++) {
-
-        output += `Table ${t}\n`;
-
-        for(let i = 1; i <= 10; i++) {
-            output += `${t} x ${i} = ${t*i}\n`;
-        }
-
-        output += "\n";
-    }
-
-    return {
-        code: code,
-        output: output
-    };
-}
-
-
-/* ------------------------------------------------
-   OTHER EXAMPLES
------------------------------------------------- */
-
-function genericPython(prompt) {
-
-    if(prompt.toLowerCase().includes("prime")) {
-
-        return {
-            code:
-`num = int(input("Enter a number: "))
-
-if num <= 1:
-    print("Not a prime number")
-else:
-    is_prime = True
-
-    for i in range(2, int(num ** 0.5) + 1):
-        if num % i == 0:
-            is_prime = False
-            break
-
-    if is_prime:
-        print("Prime number")
-    else:
-        print("Not a prime number")`,
-            output:
-`Enter a number: 17
-Prime number`
+/* ===============================
+   ESCAPE HTML
+================================ */
+
+function escapeHTML(text) {
+
+    return text.replace(/[&<>"']/g, char => {
+
+        const map = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
         };
 
-    }
+        return map[char];
 
-    if(prompt.toLowerCase().includes("factorial")) {
+    });
 
-        return {
-            code:
-`num = int(input("Enter a number: "))
-
-factorial = 1
-
-for i in range(1, num + 1):
-    factorial *= i
-
-print("Factorial =", factorial)`,
-            output:
-`Enter a number: 5
-Factorial = 120`
-        };
-
-    }
-
-    return {
-        code:
-`# Describe your programming logic here
-
-print("Program generated successfully")`,
-        output:
-`Program generated successfully`
-    };
 }
 
 
-/* ------------------------------------------------
-   GENERATE
------------------------------------------------- */
+/* ===============================
+   WORD LIMIT
+================================ */
 
-function generateCode() {
+function getWordLimit(duration) {
 
-    const prompt =
-        document.getElementById("prompt").value.trim();
+    const limits = {
 
-    const resultContainer =
-        document.getElementById("results");
+        1: 150,
 
-    const status =
-        document.getElementById("status");
+        2: 290,
+
+        3: 430,
+
+        5: 700
+
+    };
+
+    return limits[duration] || 290;
+
+}
 
 
-    if(prompt === "") {
+/* ===============================
+   SPEECH GENERATOR
+================================ */
 
-        alert("Please describe what you want to program.");
+function createSpeech(
+    topic,
+    description,
+    audience,
+    duration,
+    tone,
+    language,
+    opening,
+    modifier = ""
+) {
 
-        return;
+    const details =
+        description.trim() ||
+        `the importance, benefits, challenges and future of ${topic}`;
+
+
+    const openings = {
+
+        "Question":
+            `Have you ever wondered how ${topic} can shape the way we live, learn, and grow?`,
+
+        "Quote-style":
+            `There is a simple idea worth remembering: "Small ideas can create big changes." Today, that idea connects directly with ${topic}.`,
+
+        "Story":
+            `Imagine a student standing at the beginning of a new challenge, with curiosity in one hand and opportunity in the other. That is where ${topic} begins.`,
+
+        "Direct":
+            `Good morning everyone. Today, I would like to speak about ${topic}, a topic that has an important place in our lives today.`
+
+    };
+
+
+    let introduction =
+        openings[opening] +
+        `\n\nToday, I am speaking to ${audience.toLowerCase()} about ${topic}. In particular, I want to focus on ${details}.`;
+
+
+    let body =
+        `\n\nFirst, let us understand why ${topic} matters. ` +
+        `It is not simply an idea to study; it can influence the way we think, work, communicate, and make decisions. ` +
+        `When we understand it clearly, we can use its opportunities more responsibly and confidently.` +
+
+        `\n\nAnother important point is practical impact. ` +
+        `${details.charAt(0).toUpperCase() + details.slice(1)}. ` +
+        `These points show that ${topic} is connected to real situations rather than being only a theory.` +
+
+        `\n\nAt the same time, we should also think critically. ` +
+        `Every opportunity can come with challenges. We need awareness, responsible choices, continuous learning, and a willingness to improve. ` +
+        `Instead of being afraid of change, we should prepare ourselves to take part in it wisely.`;
+
+
+    let conclusion =
+        `\n\nTo conclude, ${topic} is more than just a topic for a speech or a classroom discussion. ` +
+        `It is an opportunity to learn something useful and apply that knowledge in our own lives. ` +
+        `If we stay curious, responsible, and ready to learn, we can turn knowledge into meaningful action.` +
+
+        `\n\nThank you for listening.`;
+
+
+    /* TONE MODIFICATIONS */
+
+    if (tone === "Inspirational") {
+
+        conclusion =
+            `\n\nTo conclude, the future is not something we simply wait for — it is something we help create. ` +
+            `${topic} gives us a chance to learn, grow, and make a difference. ` +
+            `Let us choose curiosity over fear, action over hesitation, and progress over excuses.` +
+
+            `\n\nThank you, and keep believing in the power of your ideas.`;
+
     }
 
 
-    const selectedLanguages =
-        [...document.querySelectorAll(".lang-btn.active")]
-        .map(button => button.dataset.lang);
+    if (tone === "Powerful") {
+
+        conclusion =
+            `\n\nThe message is simple: ${topic} matters, and our response matters even more. ` +
+            `We have the ability to learn, adapt, and lead. ` +
+            `So let us not just talk about change. Let us understand it, use it responsibly, and become part of the solution.` +
+
+            `\n\nThank you.`;
+
+    }
 
 
-    resultContainer.innerHTML = "";
+    if (tone === "Friendly") {
 
-    status.textContent = "Generating...";
+        introduction =
+            `Hi everyone! Today, let us have a simple conversation about ${topic}. ` +
+            `I want to share a few ideas about ${details}, and why this topic is worth our attention.`;
 
-
-    setTimeout(() => {
-
-        const isTable =
-            /table|multiplication/i.test(prompt);
-
-        const tableCount =
-            getTableCount(prompt);
+    }
 
 
-        selectedLanguages.forEach(language => {
+    if (tone === "Simple") {
 
-            let result;
-            let languageName;
+        introduction =
+            `Good morning everyone. Today I am going to speak about ${topic}. ` +
+            `I will explain ${details} in a simple and easy-to-understand way.`;
 
-
-            if(isTable) {
-
-                if(language === "python") {
-                    result = generatePythonTables(tableCount);
-                    languageName = "Python";
-                }
-
-                if(language === "c") {
-                    result = generateCTables(tableCount);
-                    languageName = "C";
-                }
-
-                if(language === "cpp") {
-                    result = generateCppTables(tableCount);
-                    languageName = "C++";
-                }
-
-                if(language === "java") {
-                    result = generateJavaTables(tableCount);
-                    languageName = "Java";
-                }
-
-            } else {
-
-                result = genericPython(prompt);
-
-                languageName =
-                    language === "cpp"
-                    ? "C++"
-                    : language === "java"
-                    ? "Java"
-                    : language.toUpperCase();
-
-            }
+    }
 
 
-            createCodeCard(
-                languageName,
-                result.code,
-                result.output
+    /* SHORT VERSION */
+
+    if (modifier === "short") {
+
+        body =
+            `\n\n${details.charAt(0).toUpperCase() + details.slice(1)}. ` +
+            `${topic} is important because it affects our learning, decisions and future. ` +
+            `We should understand its benefits while also being aware of its challenges.`;
+
+        conclusion =
+            `\n\nTo conclude, learning about ${topic} helps us become more informed and prepared. Thank you.`;
+
+    }
+
+
+    /* POWERFUL VERSION */
+
+    if (modifier === "power") {
+
+        introduction =
+            `${openings[opening]}\n\n` +
+            `Let us be clear: ${topic} is not just another topic. ` +
+            `It deserves our attention because ${details}.`;
+
+        conclusion =
+            `\n\nRemember this: knowledge gives us awareness, but action gives knowledge a purpose. ` +
+            `${topic} challenges us to think bigger, act smarter, and prepare for the future.` +
+
+            `\n\nThank you.`;
+
+    }
+
+
+    let speech =
+        introduction +
+        body +
+        conclusion;
+
+
+    /* LIMIT WORD COUNT */
+
+    const limit = getWordLimit(duration);
+
+    const words = speech.split(/\s+/);
+
+    if (words.length > limit) {
+
+        speech =
+            words.slice(0, limit).join(" ") +
+            "…\n\nThank you.";
+
+    }
+
+
+    return speech;
+
+}
+
+
+/* ===============================
+   TYPING ANIMATION
+================================ */
+
+async function typeSpeech(element, text) {
+
+    element.innerHTML = "";
+
+    const cursor = document.createElement("span");
+
+    cursor.className = "cursor";
+
+    element.appendChild(cursor);
+
+
+    for (let i = 0; i < text.length; i++) {
+
+        cursor.before(
+            document.createTextNode(text[i])
+        );
+
+        if (i % 4 === 0) {
+
+            await new Promise(resolve =>
+                setTimeout(resolve, 7)
             );
 
-        });
+        }
 
+    }
 
-        status.textContent =
-            `${selectedLanguages.length} language(s) generated`;
-
-    }, 500);
+    cursor.remove();
 
 }
 
 
-/* ------------------------------------------------
-   CREATE CODE CARD
------------------------------------------------- */
+/* ===============================
+   GENERATE
+================================ */
 
-function createCodeCard(language, code, output) {
+async function generateSpeech(modifier = "") {
 
-    const container =
-        document.getElementById("results");
+    const topic =
+        $("topic").value.trim();
 
+    const description =
+        $("description").value;
 
-    const card =
-        document.createElement("div");
+    const audience =
+        $("audience").value;
 
-    card.className = "code-card";
+    const duration =
+        $("duration").value;
 
+    const language =
+        $("language").value;
 
-    const top =
-        document.createElement("div");
-
-    top.className = "code-top";
-
-
-    const languageName =
-        document.createElement("div");
-
-    languageName.className =
-        "language-name";
-
-    languageName.innerHTML =
-        `<span class="dot"></span>${language}`;
+    const opening =
+        $("opening").value;
 
 
-    const copyButton =
-        document.createElement("button");
+    if (!topic) {
 
-    copyButton.className =
-        "copy-btn";
+        $("topic").focus();
 
-    copyButton.textContent =
-        "Copy";
+        $("status").textContent =
+            "Topic required";
 
+        return;
 
-    copyButton.onclick = () => {
-
-        navigator.clipboard.writeText(code);
-
-        copyButton.textContent =
-            "Copied ✓";
-
-        setTimeout(() => {
-
-            copyButton.textContent =
-                "Copy";
-
-        }, 1500);
-
-    };
+    }
 
 
-    top.appendChild(languageName);
+    $("status").textContent =
+        "Generating...";
 
-    top.appendChild(copyButton);
-
-
-    const pre =
-        document.createElement("pre");
-
-    pre.textContent = code;
+    $("generate").disabled = true;
 
 
-    const outputBox =
-        document.createElement("div");
-
-    outputBox.className =
-        "output-box";
-
-
-    const outputTitle =
-        document.createElement("div");
-
-    outputTitle.className =
-        "output-title";
-
-    outputTitle.textContent =
-        "Expected Output";
+    const speech =
+        createSpeech(
+            topic,
+            description,
+            audience,
+            duration,
+            selectedTone,
+            language,
+            opening,
+            modifier
+        );
 
 
-    const outputContent =
-        document.createElement("div");
+    currentSpeech = speech;
 
-    outputContent.className =
-        "output-content";
-
-    outputContent.textContent =
-        output;
+    currentTitle = topic + " — Speech";
 
 
-    outputBox.appendChild(outputTitle);
+    $("result").innerHTML = `
 
-    outputBox.appendChild(outputContent);
+        <div class="speech-title">
+            ${escapeHTML(topic)}
+        </div>
+
+        <div class="meta">
+
+            <span>
+                🎓 ${escapeHTML(audience)}
+            </span>
+
+            <span>
+                ⏱️ ${duration} min
+            </span>
+
+            <span>
+                🎭 ${escapeHTML(selectedTone)}
+            </span>
+
+            <span>
+                🌐 ${escapeHTML(language)}
+            </span>
+
+        </div>
+
+        <div class="speech-box" id="speechBox"></div>
+
+    `;
 
 
-    card.appendChild(top);
+    await typeSpeech(
+        $("speechBox"),
+        speech
+    );
 
-    card.appendChild(pre);
 
-    card.appendChild(outputBox);
+    $("actions").style.display =
+        "flex";
 
 
-    container.appendChild(card);
+    $("status").textContent =
+        "Generated ✓";
+
+    $("generate").disabled =
+        false;
+
 }
+
+
+/* ===============================
+   BUTTON EVENTS
+================================ */
+
+$("generate").addEventListener(
+    "click",
+    () => generateSpeech()
+);
+
+
+$("shortBtn").addEventListener(
+    "click",
+    () => generateSpeech("short")
+);
+
+
+$("powerBtn").addEventListener(
+    "click",
+    () => generateSpeech("power")
+);
+
+
+/* ===============================
+   COPY
+================================ */
+
+$("copyBtn").addEventListener(
+    "click",
+    async () => {
+
+        try {
+
+            await navigator.clipboard.writeText(
+                currentSpeech
+            );
+
+            $("copyBtn").textContent =
+                "✅ Copied!";
+
+            setTimeout(() => {
+
+                $("copyBtn").textContent =
+                    "📋 Copy";
+
+            }, 1500);
+
+        } catch {
+
+            alert("Copy failed. Please select the speech and copy it manually.");
+
+        }
+
+    }
+);
+
+
+/* ===============================
+   DOWNLOAD
+================================ */
+
+$("downloadBtn").addEventListener(
+    "click",
+    () => {
+
+        const content =
+            currentTitle +
+            "\n\n" +
+            currentSpeech;
+
+
+        const blob =
+            new Blob(
+                [content],
+                { type: "text/plain" }
+            );
+
+
+        const url =
+            URL.createObjectURL(blob);
+
+
+        const link =
+            document.createElement("a");
+
+
+        link.href = url;
+
+        link.download =
+            currentTitle
+                .replace(/[^a-z0-9]+/gi, "-")
+                .toLowerCase() +
+            ".txt";
+
+
+        link.click();
+
+
+        URL.revokeObjectURL(url);
+
+    }
+);
+
+
+/* ===============================
+   TEXT TO SPEECH
+================================ */
+
+$("speakBtn").addEventListener(
+    "click",
+    () => {
+
+        if (!currentSpeech) return;
+
+
+        speechSynthesis.cancel();
+
+
+        const utterance =
+            new SpeechSynthesisUtterance(
+                currentSpeech
+            );
+
+
+        utterance.rate = 0.95;
+
+        utterance.pitch = 1;
+
+
+        utterance.onstart = () => {
+
+            $("status").textContent =
+                "Speaking...";
+
+        };
+
+
+        utterance.onend = () => {
+
+            $("status").textContent =
+                "Ready";
+
+        };
+
+
+        speechSynthesis.speak(
+            utterance
+        );
+
+    }
+);
+
+
+/* ===============================
+   STOP SPEECH
+================================ */
+
+$("stopBtn").addEventListener(
+    "click",
+    () => {
+
+        speechSynthesis.cancel();
+
+        $("status").textContent =
+            "Ready";
+
+    }
+);
+
+
+/* ===============================
+   ENTER KEY
+================================ */
+
+$("topic").addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Enter") {
+
+            generateSpeech();
+
+        }
+
+    }
+);
 
 </script>
 
